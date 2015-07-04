@@ -8,6 +8,7 @@
 
 #import "FlickerPhotosViewControllerCollectionViewController.h"
 #import "FlickerPhotosFetcher.h"
+#import "FlickerPhotoCell.h"
 
 @interface FlickerPhotosViewControllerCollectionViewController ()
 
@@ -24,13 +25,16 @@ static NSString * const reuseIdentifier = @"FlickerCell";
     
     [FlickerPhotosFetcher fetchFlickerPhotos:^(NSArray *photos, NSError *error) {
         self.photosToLoad = photos;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.collectionView reloadData];
+        });
     }];
     
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Register cell classes
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+//    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     
     // Do any additional setup after loading the view.
 }
@@ -53,18 +57,18 @@ static NSString * const reuseIdentifier = @"FlickerCell";
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of items
-    return 0;
+    return self.photosToLoad.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    FlickerPhotoCell *cell = (FlickerPhotoCell*)[collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    
+    cell.photo = [self.photosToLoad objectAtIndex:[indexPath row]];
     
     // Configure the cell
     
@@ -73,6 +77,9 @@ static NSString * const reuseIdentifier = @"FlickerCell";
 
 #pragma mark <UICollectionViewDelegate>
 
+- (void)collectionView:(nonnull UICollectionView *)collectionView didDeselectItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+
+}
 /*
 // Uncomment this method to specify if the specified item should be highlighted during tracking
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
