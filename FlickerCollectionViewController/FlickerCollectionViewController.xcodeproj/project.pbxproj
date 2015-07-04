@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		395102491B46CA6300A8A7D5 /* FlickerPhotosFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 395102481B46CA6300A8A7D5 /* FlickerPhotosFetcher.m */; };
 		3951024C1B46E23800A8A7D5 /* FlickerPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 3951024B1B46E23800A8A7D5 /* FlickerPhoto.m */; };
+		395102521B47287700A8A7D5 /* FlickerPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 395102511B47287700A8A7D5 /* FlickerPhotoCell.m */; };
 		39E54A5A1B46183300E7CD88 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E54A591B46183300E7CD88 /* main.m */; };
 		39E54A5D1B46183300E7CD88 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E54A5C1B46183300E7CD88 /* AppDelegate.m */; };
 		39E54A631B46183300E7CD88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39E54A611B46183300E7CD88 /* Main.storyboard */; };
@@ -42,6 +43,8 @@
 		395102481B46CA6300A8A7D5 /* FlickerPhotosFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickerPhotosFetcher.m; sourceTree = "<group>"; };
 		3951024A1B46E23800A8A7D5 /* FlickerPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickerPhoto.h; sourceTree = "<group>"; };
 		3951024B1B46E23800A8A7D5 /* FlickerPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickerPhoto.m; sourceTree = "<group>"; };
+		395102501B47287700A8A7D5 /* FlickerPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickerPhotoCell.h; sourceTree = "<group>"; };
+		395102511B47287700A8A7D5 /* FlickerPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickerPhotoCell.m; sourceTree = "<group>"; };
 		39E54A551B46183300E7CD88 /* FlickerCollectionViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlickerCollectionViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		39E54A591B46183300E7CD88 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		39E54A5B1B46183300E7CD88 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -118,6 +121,8 @@
 				39E54A5C1B46183300E7CD88 /* AppDelegate.m */,
 				39E54A8B1B461AEC00E7CD88 /* FlickerPhotosViewControllerCollectionViewController.h */,
 				39E54A8C1B461AEC00E7CD88 /* FlickerPhotosViewControllerCollectionViewController.m */,
+				395102501B47287700A8A7D5 /* FlickerPhotoCell.h */,
+				395102511B47287700A8A7D5 /* FlickerPhotoCell.m */,
 				395102471B46CA6300A8A7D5 /* FlickerPhotosFetcher.h */,
 				395102481B46CA6300A8A7D5 /* FlickerPhotosFetcher.m */,
 				3951024A1B46E23800A8A7D5 /* FlickerPhoto.h */,
@@ -344,6 +349,7 @@
 				39E54A5A1B46183300E7CD88 /* main.m in Sources */,
 				3951024C1B46E23800A8A7D5 /* FlickerPhoto.m in Sources */,
 				395102491B46CA6300A8A7D5 /* FlickerPhotosFetcher.m in Sources */,
+				395102521B47287700A8A7D5 /* FlickerPhotoCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
