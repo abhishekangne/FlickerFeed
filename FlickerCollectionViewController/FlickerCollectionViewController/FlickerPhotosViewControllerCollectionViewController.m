@@ -18,17 +18,47 @@
 
 static NSString * const reuseIdentifier = @"FlickerCell";
 
+- (void) fetchPhotos {
+    
+//    [FlickerPhotosFetcher fetchFlickerPhotos:^(NSArray *photos, NSError *error) {
+//        self.photosToLoad = photos;
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self.collectionView reloadData];
+//        });
+//    }];
+    
+    [FlickerPhotosFetcher fetchFlickerPhotos:^(NSArray *photos, NSError *error) {
+        NSMutableArray* allPhotos = [[NSMutableArray alloc] initWithArray:photos];
+        self.photosToLoad = [[allPhotos arrayByAddingObjectsFromArray:self.photosToLoad] mutableCopy];
+        
+        [UIView animateWithDuration:0 animations:^{
+            [self.collectionView performBatchUpdates:^{
+                NSMutableArray* arrayWithIndexPaths = [NSMutableArray new];
+                for (int i = 0; i < [photos count]; i++) {
+                    [arrayWithIndexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+                }
+                [self.collectionView insertItemsAtIndexPaths:arrayWithIndexPaths];
+            } completion:nil];
+        }];
+        
+        
+    }];
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.navigationController.navigationBar.barTintColor = UIColor.orangeColor;
+    self.photosToLoad = [NSMutableArray new];
     
-    [FlickerPhotosFetcher fetchFlickerPhotos:^(NSArray *photos, NSError *error) {
-        self.photosToLoad = photos;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.collectionView reloadData];
-        });
-    }];
+    [self fetchPhotos];
+    
+    [NSTimer scheduledTimerWithTimeInterval:10.0
+                                     target:self
+                                   selector:@selector(fetchPhotos)
+                                   userInfo:nil
+                                    repeats:YES];
     
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = NO;

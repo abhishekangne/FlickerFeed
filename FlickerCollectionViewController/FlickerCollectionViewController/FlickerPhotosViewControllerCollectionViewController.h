@@ -10,6 +10,6 @@
 
 @interface FlickerPhotosViewControllerCollectionViewController : UICollectionViewController
 
-@property(nonatomic,strong) NSArray* photosToLoad;
+@property(nonatomic,strong) NSMutableArray* photosToLoad;
 
 @end
