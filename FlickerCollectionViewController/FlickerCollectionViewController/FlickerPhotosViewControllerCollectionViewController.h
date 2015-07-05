@@ -11,5 +11,6 @@
 @interface FlickerPhotosViewControllerCollectionViewController : UICollectionViewController
 
 @property(nonatomic,strong) NSMutableArray* photosToLoad;
+@property(nonatomic,strong) UIButton* loadMoreButton;
 
 @end

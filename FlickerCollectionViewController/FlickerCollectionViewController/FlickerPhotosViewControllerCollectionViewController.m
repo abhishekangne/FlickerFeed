@@ -18,6 +18,47 @@
 
 static NSString * const reuseIdentifier = @"FlickerCell";
 
+- (void) loadMorePhotos {
+    [UIView animateWithDuration:0.5 animations:^{
+        self.loadMoreButton.frame = CGRectMake(self.loadMoreButton.frame.origin.x, -50.0, self.loadMoreButton.frame.size.width, self.loadMoreButton.frame.size.height);
+        [self.collectionView reloadData];
+    } completion:^(BOOL finished) {
+        NSIndexPath *indxPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        [self.collectionView scrollToItemAtIndexPath:indxPath atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+    }];
+}
+
+
+- (void) setupLoadMorePhotosButton {
+    self.loadMoreButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.loadMoreButton setFrame: CGRectMake((self.collectionView.frame.size.width / 2.0) - 50.0, -30.0, 100.0, 30.0)];
+    [self.loadMoreButton setTitle:@"Load More" forState:UIControlStateNormal];
+    [self.loadMoreButton setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    self.loadMoreButton.layer.cornerRadius = 2;
+    self.loadMoreButton.layer.borderWidth = 1;
+    self.loadMoreButton.layer.borderColor = [UIColor orangeColor].CGColor;
+    self.loadMoreButton.layer.backgroundColor = [UIColor orangeColor].CGColor;
+    [self.loadMoreButton addTarget:self action:@selector(loadMorePhotos) forControlEvents:UIControlEventTouchUpInside];
+     self.loadMoreButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:self.loadMoreButton];
+    
+}
+
+- (void) updatePhotosOnUI :(NSArray*)photos {
+    NSMutableArray* allPhotos = [[NSMutableArray alloc] initWithArray:photos];
+    self.photosToLoad = [[allPhotos arrayByAddingObjectsFromArray:self.photosToLoad] mutableCopy];
+    
+    [UIView animateWithDuration:0 animations:^{
+        [self.collectionView performBatchUpdates:^{
+            NSMutableArray* arrayWithIndexPaths = [NSMutableArray new];
+            for (int i = 0; i < [photos count]; i++) {
+                [arrayWithIndexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+            }
+            [self.collectionView insertItemsAtIndexPaths:arrayWithIndexPaths];
+        } completion:nil];
+    }];
+}
+
 - (void) fetchPhotos {
     
 //    [FlickerPhotosFetcher fetchFlickerPhotos:^(NSArray *photos, NSError *error) {
@@ -28,19 +69,24 @@ static NSString * const reuseIdentifier = @"FlickerCell";
 //    }];
     
     [FlickerPhotosFetcher fetchFlickerPhotos:^(NSArray *photos, NSError *error) {
-        NSMutableArray* allPhotos = [[NSMutableArray alloc] initWithArray:photos];
-        self.photosToLoad = [[allPhotos arrayByAddingObjectsFromArray:self.photosToLoad] mutableCopy];
-        
-        [UIView animateWithDuration:0 animations:^{
-            [self.collectionView performBatchUpdates:^{
-                NSMutableArray* arrayWithIndexPaths = [NSMutableArray new];
-                for (int i = 0; i < [photos count]; i++) {
-                    [arrayWithIndexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
-                }
-                [self.collectionView insertItemsAtIndexPaths:arrayWithIndexPaths];
-            } completion:nil];
-        }];
-        
+
+        if (self.photosToLoad.count == 0) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self updatePhotosOnUI:photos];
+            });
+
+        }
+        else {
+            NSMutableArray* allPhotos = [[NSMutableArray alloc] initWithArray:photos];
+            self.photosToLoad = [[allPhotos arrayByAddingObjectsFromArray:self.photosToLoad] mutableCopy];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [UIView animateWithDuration:1.0 animations:^{
+                    self.loadMoreButton.frame = CGRectMake(self.loadMoreButton.frame.origin.x, 80.0, self.loadMoreButton.frame.size.width, self.loadMoreButton.frame.size.height);
+                }];
+            });
+            
+        }
         
     }];
     
@@ -52,6 +98,7 @@ static NSString * const reuseIdentifier = @"FlickerCell";
     self.navigationController.navigationBar.barTintColor = UIColor.orangeColor;
     self.photosToLoad = [NSMutableArray new];
     
+    [self setupLoadMorePhotosButton];
     [self fetchPhotos];
     
     [NSTimer scheduledTimerWithTimeInterval:10.0

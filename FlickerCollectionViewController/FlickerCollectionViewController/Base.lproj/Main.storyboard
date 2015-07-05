@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.14"/>
     </dependencies>
     <scenes>
-        <!--Flicker Photos View Controller Collection View Controller-->
+        <!--Flickr Feed-->
         <scene sceneID="2ji-yb-VTK">
             <objects>
                 <collectionViewController id="go3-jc-poG" customClass="FlickerPhotosViewControllerCollectionViewController" sceneMemberID="viewController">
@@ -52,7 +52,7 @@
                             <outlet property="delegate" destination="go3-jc-poG" id="0XQ-0g-My9"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="jxq-y7-AGe"/>
+                    <navigationItem key="navigationItem" title="Flickr Feed" id="jxq-y7-AGe"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eID-Ac-fcu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
