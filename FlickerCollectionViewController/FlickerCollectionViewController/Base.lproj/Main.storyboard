@@ -2,12 +2,13 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8121.17" systemVersion="15A204h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="faL-ti-WYQ">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.14"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Flickr Feed-->
         <scene sceneID="2ji-yb-VTK">
             <objects>
-                <collectionViewController id="go3-jc-poG" customClass="FlickerPhotosViewControllerCollectionViewController" sceneMemberID="viewController">
+                <collectionViewController id="go3-jc-poG" customClass="FlickerPhotosViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="NZh-OX-DzZ">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -44,6 +45,7 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="imageView" destination="yX5-b5-1RD" id="AYo-0D-BD7"/>
+                                    <segue destination="JCM-sd-XGj" kind="show" identifier="showPhotoDetail" id="eR5-Uv-jht"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -57,6 +59,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eID-Ac-fcu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1174" y="422"/>
+        </scene>
+        <!--Flicker Photo Detail View Controller-->
+        <scene sceneID="RxA-kt-7le">
+            <objects>
+                <viewController id="JCM-sd-XGj" customClass="FlickerPhotoDetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6Ba-cd-eb4"/>
+                        <viewControllerLayoutGuide type="bottom" id="8wV-X9-3X1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TB6-qA-RN1">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="h5c-Bi-grw">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <animations/>
+                            </imageView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="h5c-Bi-grw" firstAttribute="top" secondItem="6Ba-cd-eb4" secondAttribute="bottom" id="AN6-VR-vQ0"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="h5c-Bi-grw" secondAttribute="trailing" constant="-20" id="B9R-mg-may"/>
+                            <constraint firstItem="8wV-X9-3X1" firstAttribute="top" secondItem="h5c-Bi-grw" secondAttribute="bottom" id="ZUd-pb-Zd5"/>
+                            <constraint firstItem="h5c-Bi-grw" firstAttribute="leading" secondItem="TB6-qA-RN1" secondAttribute="leadingMargin" constant="-20" id="saW-uB-GJB"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="flickerPhotoView" destination="h5c-Bi-grw" id="csp-Ns-gWF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cvm-77-FzE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1879" y="422"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3xQ-jX-xy9">
@@ -78,5 +114,5 @@
             <point key="canvasLocation" x="362" y="422"/>
         </scene>
     </scenes>
-    <color key="tintColor" red="0.0" green="0.50196081399917603" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
+    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>

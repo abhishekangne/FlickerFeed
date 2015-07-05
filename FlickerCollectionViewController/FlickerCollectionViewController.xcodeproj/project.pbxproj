@@ -10,6 +10,7 @@
 		395102491B46CA6300A8A7D5 /* FlickerPhotosFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 395102481B46CA6300A8A7D5 /* FlickerPhotosFetcher.m */; };
 		3951024C1B46E23800A8A7D5 /* FlickerPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 3951024B1B46E23800A8A7D5 /* FlickerPhoto.m */; };
 		395102521B47287700A8A7D5 /* FlickerPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 395102511B47287700A8A7D5 /* FlickerPhotoCell.m */; };
+		39DA5F601B49A449006F2693 /* FlickerPhotoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39DA5F5F1B49A449006F2693 /* FlickerPhotoDetailViewController.m */; };
 		39E54A5A1B46183300E7CD88 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E54A591B46183300E7CD88 /* main.m */; };
 		39E54A5D1B46183300E7CD88 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E54A5C1B46183300E7CD88 /* AppDelegate.m */; };
 		39E54A631B46183300E7CD88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39E54A611B46183300E7CD88 /* Main.storyboard */; };
@@ -17,7 +18,7 @@
 		39E54A681B46183300E7CD88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39E54A661B46183300E7CD88 /* LaunchScreen.storyboard */; };
 		39E54A731B46183300E7CD88 /* FlickerCollectionViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E54A721B46183300E7CD88 /* FlickerCollectionViewControllerTests.m */; };
 		39E54A7E1B46183300E7CD88 /* FlickerCollectionViewControllerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E54A7D1B46183300E7CD88 /* FlickerCollectionViewControllerUITests.m */; };
-		39E54A8D1B461AEC00E7CD88 /* FlickerPhotosViewControllerCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E54A8C1B461AEC00E7CD88 /* FlickerPhotosViewControllerCollectionViewController.m */; };
+		39E54A8D1B461AEC00E7CD88 /* FlickerPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E54A8C1B461AEC00E7CD88 /* FlickerPhotosViewController.m */; };
 		CAE3FE332663F295187F3B80 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB4711BD6AA084F1EAC44480 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,8 @@
 		3951024B1B46E23800A8A7D5 /* FlickerPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickerPhoto.m; sourceTree = "<group>"; };
 		395102501B47287700A8A7D5 /* FlickerPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickerPhotoCell.h; sourceTree = "<group>"; };
 		395102511B47287700A8A7D5 /* FlickerPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickerPhotoCell.m; sourceTree = "<group>"; };
+		39DA5F5E1B49A449006F2693 /* FlickerPhotoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickerPhotoDetailViewController.h; sourceTree = "<group>"; };
+		39DA5F5F1B49A449006F2693 /* FlickerPhotoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickerPhotoDetailViewController.m; sourceTree = "<group>"; };
 		39E54A551B46183300E7CD88 /* FlickerCollectionViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlickerCollectionViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		39E54A591B46183300E7CD88 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		39E54A5B1B46183300E7CD88 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -59,8 +62,8 @@
 		39E54A791B46183300E7CD88 /* FlickerCollectionViewControllerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlickerCollectionViewControllerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		39E54A7D1B46183300E7CD88 /* FlickerCollectionViewControllerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlickerCollectionViewControllerUITests.m; sourceTree = "<group>"; };
 		39E54A7F1B46183300E7CD88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		39E54A8B1B461AEC00E7CD88 /* FlickerPhotosViewControllerCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickerPhotosViewControllerCollectionViewController.h; sourceTree = "<group>"; };
-		39E54A8C1B461AEC00E7CD88 /* FlickerPhotosViewControllerCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickerPhotosViewControllerCollectionViewController.m; sourceTree = "<group>"; };
+		39E54A8B1B461AEC00E7CD88 /* FlickerPhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickerPhotosViewController.h; sourceTree = "<group>"; };
+		39E54A8C1B461AEC00E7CD88 /* FlickerPhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickerPhotosViewController.m; sourceTree = "<group>"; };
 		5FFC09E0CABF06BFA56C33B3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		83EF37B093795DD2C538ACDF /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		FB4711BD6AA084F1EAC44480 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,8 +122,10 @@
 			children = (
 				39E54A5B1B46183300E7CD88 /* AppDelegate.h */,
 				39E54A5C1B46183300E7CD88 /* AppDelegate.m */,
-				39E54A8B1B461AEC00E7CD88 /* FlickerPhotosViewControllerCollectionViewController.h */,
-				39E54A8C1B461AEC00E7CD88 /* FlickerPhotosViewControllerCollectionViewController.m */,
+				39E54A8B1B461AEC00E7CD88 /* FlickerPhotosViewController.h */,
+				39E54A8C1B461AEC00E7CD88 /* FlickerPhotosViewController.m */,
+				39DA5F5E1B49A449006F2693 /* FlickerPhotoDetailViewController.h */,
+				39DA5F5F1B49A449006F2693 /* FlickerPhotoDetailViewController.m */,
 				395102501B47287700A8A7D5 /* FlickerPhotoCell.h */,
 				395102511B47287700A8A7D5 /* FlickerPhotoCell.m */,
 				395102471B46CA6300A8A7D5 /* FlickerPhotosFetcher.h */,
@@ -345,8 +350,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				39E54A5D1B46183300E7CD88 /* AppDelegate.m in Sources */,
-				39E54A8D1B461AEC00E7CD88 /* FlickerPhotosViewControllerCollectionViewController.m in Sources */,
+				39E54A8D1B461AEC00E7CD88 /* FlickerPhotosViewController.m in Sources */,
 				39E54A5A1B46183300E7CD88 /* main.m in Sources */,
+				39DA5F601B49A449006F2693 /* FlickerPhotoDetailViewController.m in Sources */,
 				3951024C1B46E23800A8A7D5 /* FlickerPhoto.m in Sources */,
 				395102491B46CA6300A8A7D5 /* FlickerPhotosFetcher.m in Sources */,
 				395102521B47287700A8A7D5 /* FlickerPhotoCell.m in Sources */,
