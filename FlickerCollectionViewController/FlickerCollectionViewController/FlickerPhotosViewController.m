@@ -74,10 +74,10 @@ static NSString * const reuseIdentifier = @"FlickerCell";
             [self updatePhotosOnUI:photos];
         }
         else {
-            self.morePhotosToLoad = [[self.morePhotosToLoad arrayByAddingObjectsFromArray:photos] mutableCopy];
+            self.morePhotosToLoad = [[photos arrayByAddingObjectsFromArray:self.morePhotosToLoad] mutableCopy];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                [UIView animateWithDuration:0.5 animations:^{
+                [UIView animateWithDuration:1.0 animations:^{
                     self.loadMoreButton.frame = CGRectMake((self.collectionView.frame.size.width / 2.0) - 60.0, 80.0, self.loadMoreButton.frame.size.width, self.loadMoreButton.frame.size.height);
                 }];
             });
@@ -145,6 +145,17 @@ static NSString * const reuseIdentifier = @"FlickerCell";
 
     // Configure the cell
     return cell;
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context)
+     {
+         self.loadMoreButton.frame = CGRectMake((self.collectionView.frame.size.width / 2.0) - 60.0, self.collectionView.frame.origin.y, self.loadMoreButton.frame.size.width, self.loadMoreButton.frame.size.height);
+         
+     } completion:nil];
+    
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
 }
 
 @end
