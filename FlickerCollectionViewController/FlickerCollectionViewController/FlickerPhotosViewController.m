@@ -34,8 +34,8 @@ static NSString * const reuseIdentifier = @"FlickerCell";
     self.loadMoreButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.loadMoreButton setFrame: CGRectMake((self.collectionView.frame.size.width / 2.0) - 50.0, -30.0, 100.0, 30.0)];
     [self.loadMoreButton setTitle:@"Load More" forState:UIControlStateNormal];
-    [self.loadMoreButton setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    self.loadMoreButton.layer.cornerRadius = 2;
+    [self.loadMoreButton setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
+    self.loadMoreButton.layer.cornerRadius = 5;
     self.loadMoreButton.layer.borderWidth = 1;
     self.loadMoreButton.layer.borderColor = [UIColor orangeColor].CGColor;
     self.loadMoreButton.layer.backgroundColor = [UIColor orangeColor].CGColor;
@@ -108,13 +108,6 @@ static NSString * const reuseIdentifier = @"FlickerCell";
                                    userInfo:nil
                                     repeats:YES];
     
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Register cell classes
-//    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
-    
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
@@ -143,7 +136,6 @@ static NSString * const reuseIdentifier = @"FlickerCell";
     return 1;
 }
 
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.photosToLoad.count;
 }
@@ -151,10 +143,12 @@ static NSString * const reuseIdentifier = @"FlickerCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     FlickerPhotoCell *cell = (FlickerPhotoCell*)[collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
-    cell.photo = [self.photosToLoad objectAtIndex:[indexPath row]];
-    
+    FlickerPhoto* photo = [self.photosToLoad objectAtIndex:[indexPath row]];
+    cell.photo = photo;
+    cell.authorLabel.text = photo.author;
+    cell.titleLabel.text = photo.title;
+
     // Configure the cell
-    
     return cell;
 }
 
