@@ -20,6 +20,8 @@
 static NSString * const reuseIdentifier = @"FlickerCell";
 
 - (void) loadMorePhotos {
+    self.photosToLoad = [[self.morePhotosToLoad arrayByAddingObjectsFromArray:self.photosToLoad] mutableCopy];
+    [self.morePhotosToLoad removeAllObjects];
     [UIView animateWithDuration:0.5 animations:^{
         self.loadMoreButton.frame = CGRectMake(self.loadMoreButton.frame.origin.x, -50.0, self.loadMoreButton.frame.size.width, self.loadMoreButton.frame.size.height);
         [self.collectionView reloadData];
@@ -32,58 +34,51 @@ static NSString * const reuseIdentifier = @"FlickerCell";
 
 - (void) setupLoadMorePhotosButton {
     self.loadMoreButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.loadMoreButton setFrame: CGRectMake((self.collectionView.frame.size.width / 2.0) - 50.0, -30.0, 100.0, 30.0)];
+    [self.loadMoreButton setFrame: CGRectMake((self.collectionView.frame.size.width / 2.0) - 60.0, -50.0, 120.0, 30.0)];
     [self.loadMoreButton setTitle:@"Load More" forState:UIControlStateNormal];
-    [self.loadMoreButton setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
-    self.loadMoreButton.layer.cornerRadius = 5;
+    [self.loadMoreButton setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    self.loadMoreButton.layer.cornerRadius = 4;
     self.loadMoreButton.layer.borderWidth = 1;
     self.loadMoreButton.layer.borderColor = [UIColor orangeColor].CGColor;
     self.loadMoreButton.layer.backgroundColor = [UIColor orangeColor].CGColor;
     [self.loadMoreButton addTarget:self action:@selector(loadMorePhotos) forControlEvents:UIControlEventTouchUpInside];
-     self.loadMoreButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:self.loadMoreButton];
+    
+    [self.view insertSubview:self.loadMoreButton aboveSubview:self.collectionView];
     
 }
 
 - (void) updatePhotosOnUI :(NSArray*)photos {
-    NSMutableArray* allPhotos = [[NSMutableArray alloc] initWithArray:photos];
-    self.photosToLoad = [[allPhotos arrayByAddingObjectsFromArray:self.photosToLoad] mutableCopy];
+    self.morePhotosToLoad = [[NSMutableArray alloc] initWithArray:photos];
+    self.photosToLoad = [self.morePhotosToLoad mutableCopy];
+    [self.morePhotosToLoad removeAllObjects];
     
-    [UIView animateWithDuration:0 animations:^{
-        [self.collectionView performBatchUpdates:^{
-            NSMutableArray* arrayWithIndexPaths = [NSMutableArray new];
-            for (int i = 0; i < [photos count]; i++) {
-                [arrayWithIndexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
-            }
-            [self.collectionView insertItemsAtIndexPaths:arrayWithIndexPaths];
-        } completion:nil];
-    }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIView animateWithDuration:0 animations:^{
+            [self.collectionView performBatchUpdates:^{
+                NSMutableArray* arrayWithIndexPaths = [NSMutableArray new];
+                for (int i = 0; i < [self.photosToLoad count]; i++) {
+                    [arrayWithIndexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+                }
+                [self.collectionView insertItemsAtIndexPaths:arrayWithIndexPaths];
+            } completion:nil];
+        }];
+    });
+    
 }
 
 - (void) fetchPhotos {
     
-//    [FlickerPhotosFetcher fetchFlickerPhotos:^(NSArray *photos, NSError *error) {
-//        self.photosToLoad = photos;
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.collectionView reloadData];
-//        });
-//    }];
-    
     [FlickerPhotosFetcher fetchFlickerPhotos:^(NSArray *photos, NSError *error) {
 
         if (self.photosToLoad.count == 0) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self updatePhotosOnUI:photos];
-            });
-
+            [self updatePhotosOnUI:photos];
         }
         else {
-            NSMutableArray* allPhotos = [[NSMutableArray alloc] initWithArray:photos];
-            self.photosToLoad = [[allPhotos arrayByAddingObjectsFromArray:self.photosToLoad] mutableCopy];
+            self.morePhotosToLoad = [[self.morePhotosToLoad arrayByAddingObjectsFromArray:photos] mutableCopy];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                [UIView animateWithDuration:1.0 animations:^{
-                    self.loadMoreButton.frame = CGRectMake(self.loadMoreButton.frame.origin.x, 80.0, self.loadMoreButton.frame.size.width, self.loadMoreButton.frame.size.height);
+                [UIView animateWithDuration:0.5 animations:^{
+                    self.loadMoreButton.frame = CGRectMake((self.collectionView.frame.size.width / 2.0) - 60.0, 80.0, self.loadMoreButton.frame.size.width, self.loadMoreButton.frame.size.height);
                 }];
             });
             
@@ -151,39 +146,5 @@ static NSString * const reuseIdentifier = @"FlickerCell";
     // Configure the cell
     return cell;
 }
-
-#pragma mark <UICollectionViewDelegate>
-/*
-- (void)collectionView:(nonnull UICollectionView *)collectionView didDeselectItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-
-}
-
-// Uncomment this method to specify if the specified item should be highlighted during tracking
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
-}
-*/
-
-/*
-// Uncomment this method to specify if the specified item should be selected
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-*/
-
-/*
-// Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return NO;
-}
-
-- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	return NO;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	
-}
-*/
 
 @end
