@@ -87,6 +87,7 @@ static NSString * const reuseIdentifier = @"FlickerCell";
         
         if (error!= nil) {
             UIAlertController* alertCtrlr = [UIAlertController alertControllerWithTitle:@"Error" message:@"Error Loading photos" preferredStyle:UIAlertControllerStyleAlert];
+            [self presentViewController:alertCtrlr animated:YES completion:nil];
         }
         else {
             if (self.photosToLoad.count == 0) {
