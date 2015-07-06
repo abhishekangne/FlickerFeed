@@ -17,7 +17,10 @@ static NSString* const urlString = @"https://api.flickr.com/services/feeds/photo
 + (void) fetchFlickerPhotos:(FlickerPhotosFetchCompletionBlock) completionBlock {
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+
+    //Set completionQueue to background. AFNetworking defaults to main queue otherwise
     manager.completionQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
+    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"application/x-javascript"];
     

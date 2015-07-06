@@ -4,7 +4,7 @@
 //
 //  Created by Abhishek Angne on 7/2/15.
 //  Copyright © 2015 Abhishek Angne. All rights reserved.
-//
+//  This is the root view controller class that shows Flicker photos in a UICollectionView
 
 #import "FlickerPhotosViewController.h"
 #import "FlickerPhotoDetailViewController.h"
@@ -19,6 +19,12 @@
 
 static NSString * const reuseIdentifier = @"FlickerCell";
 
+#pragma mark - Utility methods
+
+
+/*!
+ * @discussion Action handler for Load More Photos button
+ */
 - (void) loadMorePhotos {
     self.photosToLoad = [[self.morePhotosToLoad arrayByAddingObjectsFromArray:self.photosToLoad] mutableCopy];
     [self.morePhotosToLoad removeAllObjects];
@@ -31,7 +37,9 @@ static NSString * const reuseIdentifier = @"FlickerCell";
     }];
 }
 
-
+/*!
+ * @discussion Method to create Load More Photos button
+ */
 - (void) setupLoadMorePhotosButton {
     self.loadMoreButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.loadMoreButton setFrame: CGRectMake((self.collectionView.frame.size.width / 2.0) - 60.0, -50.0, 120.0, 30.0)];
@@ -47,6 +55,10 @@ static NSString * const reuseIdentifier = @"FlickerCell";
     
 }
 
+/*!
+ * @discussion Shows photos in the collection view
+ * @param photos array returned from the API
+ */
 - (void) updatePhotosOnUI :(NSArray*)photos {
     self.morePhotosToLoad = [[NSMutableArray alloc] initWithArray:photos];
     self.photosToLoad = [self.morePhotosToLoad mutableCopy];
@@ -66,27 +78,34 @@ static NSString * const reuseIdentifier = @"FlickerCell";
     
 }
 
+/*!
+ * @discussion Utility method to fetch photos from the server
+ */
 - (void) fetchPhotos {
     
     [FlickerPhotosFetcher fetchFlickerPhotos:^(NSArray *photos, NSError *error) {
-
-        if (self.photosToLoad.count == 0) {
-            [self updatePhotosOnUI:photos];
+        
+        if (error!= nil) {
+            UIAlertController* alertCtrlr = [UIAlertController alertControllerWithTitle:@"Error" message:@"Error Loading photos" preferredStyle:UIAlertControllerStyleAlert];
         }
         else {
-            self.morePhotosToLoad = [[photos arrayByAddingObjectsFromArray:self.morePhotosToLoad] mutableCopy];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [UIView animateWithDuration:1.0 animations:^{
-                    self.loadMoreButton.frame = CGRectMake((self.collectionView.frame.size.width / 2.0) - 60.0, 80.0, self.loadMoreButton.frame.size.width, self.loadMoreButton.frame.size.height);
-                }];
-            });
-            
+            if (self.photosToLoad.count == 0) {
+                [self updatePhotosOnUI:photos];
+            }
+            else {
+                self.morePhotosToLoad = [[photos arrayByAddingObjectsFromArray:self.morePhotosToLoad] mutableCopy];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [UIView animateWithDuration:1.0 animations:^{
+                        self.loadMoreButton.frame = CGRectMake((self.collectionView.frame.size.width / 2.0) - 60.0, 80.0, self.loadMoreButton.frame.size.width, self.loadMoreButton.frame.size.height);
+                    }];
+                });
+            }
         }
-        
     }];
-    
 }
+
+#pragma mark - ViewController Lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -112,7 +131,6 @@ static NSString * const reuseIdentifier = @"FlickerCell";
 
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
@@ -142,8 +160,6 @@ static NSString * const reuseIdentifier = @"FlickerCell";
     cell.photo = photo;
     cell.authorLabel.text = photo.author;
     cell.titleLabel.text = photo.title;
-
-    // Configure the cell
     return cell;
 }
 
